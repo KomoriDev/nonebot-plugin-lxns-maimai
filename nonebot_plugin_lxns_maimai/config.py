@@ -5,6 +5,7 @@ from nonebot.plugin import get_plugin_config
 
 RESOURCES_DIR: Path = Path(__file__).parent / "resources"
 IMAGES_DIR: Path = RESOURCES_DIR / "images"
+TEMPLATES_DIR: Path = RESOURCES_DIR / "templates"
 
 
 class ScopedConfig(BaseModel):

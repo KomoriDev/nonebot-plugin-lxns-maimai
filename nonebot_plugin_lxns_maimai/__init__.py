@@ -16,6 +16,7 @@ from nonebot_plugin_alconna import Args, Match, Option, Alconna, CommandMeta, on
 from .apis import API
 from . import migrations
 from .model import bind_user
+from .render import render_b50
 from .annotated import UserInfo
 from .config import Config, config
 from .exception import FetchUserException
@@ -104,3 +105,4 @@ async def _(user: UserInfo):
             .keyboard(Button("input", label="Bind", text="/mai bind"))
             .finish(at_sender=True, fallback=FallbackStrategy.ignore)
         )
+    await UniMessage.image(raw=await render_b50()).finish(at_sender=True)
