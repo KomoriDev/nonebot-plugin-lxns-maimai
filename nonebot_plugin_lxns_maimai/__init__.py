@@ -7,6 +7,7 @@ require("nonebot_plugin_orm")
 require("nonebot_plugin_user")
 require("nonebot_plugin_waiter")
 require("nonebot_plugin_alconna")
+require("nonebot_plugin_htmlrender")
 from nonebot_plugin_waiter import prompt
 from nonebot_plugin_user import UserSession
 from nonebot_plugin_alconna.uniseg import Button, UniMessage, FallbackStrategy
