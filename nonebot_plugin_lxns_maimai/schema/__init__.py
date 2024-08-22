@@ -9,5 +9,6 @@ from .version import Version as Version
 from .collection import Collection as Collection
 from .song import SongDifficulty as SongDifficulty
 from .song import SongDifficulties as SongDifficulties
+from .song import SongDifficultyUtage as SongDifficultyUtage
 from .collection import CollectionRequired as CollectionRequired
 from .collection import CollectionRequiredSong as CollectionRequiredSong

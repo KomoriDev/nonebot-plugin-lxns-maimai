@@ -16,3 +16,12 @@ class Notes(BaseModel):
     """TOUCH 物量"""
     break_: int = Field(alias="break")
     """BREAK 物量"""
+
+
+class BuddyNotes(BaseModel):
+    """仅宴会场曲目，BUDDY 谱面物量"""
+
+    left: Notes
+    """1P 谱面物量"""
+    right: Notes
+    """2P 谱面物量"""

@@ -23,6 +23,19 @@ class SongDifficulty(BaseModel):
     """谱面物量"""
 
 
+class SongDifficultyUtage(BaseModel, SongDifficulty):
+    """宴会场曲目谱面难度"""
+
+    kanji: str
+    """谱面属性"""
+    description: str
+    """谱面描述"""
+    is_buddy: bool
+    """是否为 BUDDY 谱面"""
+    notes: Notes
+    """	值可空，谱面物量。is_buddy 为 true 时，notes 为 BuddyNotes。"""
+
+
 class SongDifficulties(BaseModel):
     """谱面难度"""
 
@@ -30,6 +43,8 @@ class SongDifficulties(BaseModel):
     """曲目标准谱面难度列表"""
     dx: list[SongDifficulty]
     """曲目 DX 谱面难度列表"""
+    utage: list[SongDifficultyUtage] | None
+    """可选，宴会场曲目谱面难度列表"""
 
 
 class Song(BaseModel):
@@ -47,5 +62,9 @@ class Song(BaseModel):
     """曲目 BPM"""
     version: int
     """曲目首次出现版本"""
+    rights: str
+    """曲目版权信息"""
+    disabled: bool | None = False
+    """值可空，是否被禁用，默认值为 false"""
     difficulties: SongDifficulties
     """谱面难度"""
