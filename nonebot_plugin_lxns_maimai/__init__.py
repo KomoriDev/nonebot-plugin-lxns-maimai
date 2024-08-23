@@ -1,3 +1,4 @@
+import httpx
 from nonebot import require
 from nonebot.rule import Rule
 from nonebot.log import logger
@@ -18,6 +19,7 @@ from . import migrations
 from .model import bind_user
 from .render import render_b50
 from .annotated import UserInfo
+from .schema import RenderProps
 from .config import Config, config
 from .exception import FetchUserException
 
@@ -105,4 +107,26 @@ async def _(user: UserInfo):
             .keyboard(Button("input", label="Bind", text="/mai bind"))
             .finish(at_sender=True, fallback=FallbackStrategy.ignore)
         )
-    await UniMessage.image(raw=await render_b50()).finish(at_sender=True)
+    try:
+        standard_total, dx_total, standard, dx = await API.get_bests(user.friend_code)
+        player = await API.get_player_info(user.friend_code)
+        props = RenderProps(
+            player=player,
+            standard_total=standard_total,
+            dx_total=dx_total,
+            standard=standard,
+            dx=dx,
+        )
+        await UniMessage.image(raw=await render_b50(props)).finish(at_sender=True)
+    except FetchUserException as e:
+        await (
+            UniMessage.text(f"Best 50 查询失败: {str(e)}")
+            .keyboard(Button("input", label="重试", text="/mai b50"))
+            .finish(at_sender=True, fallback=FallbackStrategy.ignore)
+        )
+    except httpx.ConnectError:
+        await (
+            UniMessage.text("Best 50 查询失败: 网络超时，请稍后再试")
+            .keyboard(Button("input", label="重试", text="/mai b50"))
+            .finish(at_sender=True, fallback=FallbackStrategy.ignore)
+        )

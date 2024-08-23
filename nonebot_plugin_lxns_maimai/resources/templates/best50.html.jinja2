@@ -1,3 +1,6 @@
+{% from 'macros.html.jinja2' import song_card %}
+
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -8,41 +11,45 @@
   <style>
     {% include "index.css" %}
   </style>
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-    }
-
-    body {
-      position: relative;
-    }
-
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('../images/canvas.png');
-      background-size: cover;
-      background-position: center;
-      z-index: -1;
-    }
-
-    .content {
-      position: relative;
-      z-index: 1;
-    }
-  </style>
+{#  <style>#}
+{#    html,#}
+{#    body {#}
+{#      margin: 0;#}
+{#      padding: 0;#}
+{#      height: 100%;#}
+{#      width: 100%;#}
+{#    }#}
+{##}
+{#    body {#}
+{#      position: relative;#}
+{#    }#}
+{##}
+{#    .background {#}
+{#      position: fixed;#}
+{#      top: 0;#}
+{#      left: 0;#}
+{#      width: 100%;#}
+{#      height: 100%;#}
+{#      background-image: url('../images/canvas.png');#}
+{#      background-size: cover;#}
+{#      background-position: center;#}
+{#      z-index: -1;#}
+{#    }#}
+{##}
+{#    .content {#}
+{#      position: relative;#}
+{#      z-index: 1;#}
+{#    }#}
+{#  </style>#}
 </head>
 
-<body>
-  <div class="background"></div>
-  <div class="content"></div>
+<body class="flex flex-wrap gap-5" style="background-color: gray">
+  {% for score in standard %}
+  	{{ song_card(score, loop.index) }}
+  {% endfor %}
+  {% for score in dx %}
+  	{{ song_card(score, loop.index) }}
+  {% endfor %}
 </body>
 
 </html>

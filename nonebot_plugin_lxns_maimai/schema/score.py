@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from .enum import FCType, FSType, RateType, SongType, LevelIndex
 
@@ -32,3 +32,5 @@ class Score(BaseModel):
     """游玩的 UTC 时间，精确到分钟"""
     upload_time: str
     """仅获取 `Score` 时返回，成绩被同步时的 UTC 时间"""
+
+    model_config = ConfigDict(extra="allow")

@@ -3,8 +3,8 @@ from io import BytesIO
 import httpx
 
 from ..config import config
-from ..schema import Trend, Player
 from ..exception import FetchUserException
+from ..schema import Song, Score, Trend, Player
 
 url = config.api_url
 token = config.api_token
@@ -20,12 +20,12 @@ class API:
         当好友码被绑定时，需要查分器用户开启 `allow_third_party_fetch_player` 权限。
         """
         async with httpx.AsyncClient() as client:
-            info = await client.get(
+            response = await client.get(
                 url=f"{url}/player/{friend_code}", headers=cls.headers
             )
-        if info.status_code != 200:
-            raise FetchUserException(info.json()["message"])
-        return Player.model_validate(info.json()["data"])
+        if response.status_code != 200:
+            raise FetchUserException(response.json()["message"])
+        return Player.model_validate(response.json()["data"])
 
     @classmethod
     async def get_rating_trend(cls, friend_code: int) -> Trend:
@@ -34,12 +34,44 @@ class API:
         当好友码被绑定时，需要查分器用户开启 `allow_third_party_fetch_history` 权限。
         """
         async with httpx.AsyncClient() as client:
-            info = await client.get(
+            response = await client.get(
                 url=f"{url}/player/{friend_code}/trend", headers=cls.headers
             )
-        if info.status_code != 200:
-            raise FetchUserException(info.json()["message"])
-        return Trend.model_validate(info.json()["data"])
+        if response.status_code != 200:
+            raise FetchUserException(response.json()["message"])
+        return Trend.model_validate(response.json()["data"])
+
+    @classmethod
+    async def get_bests(
+        cls, friend_code: int
+    ) -> tuple[int, int, list[Score], list[Score]]:
+        """
+        获取玩家缓存的 Best50
+        Args:
+            friend_code: 好友码
+
+        Returns:
+            standard_total: 旧版本谱面 Best 35 总分
+            dx_total: 现版本谱面 Best 15 总分
+            standard: 旧版本谱面 Best 35 列表
+            dx: 现版本谱面 Best 15 列表
+        """
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                url=f"{url}/player/{friend_code}/bests", headers=cls.headers
+            )
+        if response.status_code != 200:
+            raise FetchUserException(response.json()["message"])
+        data = response.json()["data"]
+        standard_scores = [Score.model_validate(score) for score in data["standard"]]
+        dx_scores = [Score.model_validate(score) for score in data["dx"]]
+        return data["standard_total"], data["dx_total"], standard_scores, dx_scores
+
+    @classmethod
+    async def get_song_info(cls, song_id: int) -> Song:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f"{url}/song/{song_id}")
+        return Song.model_validate(response.json())
 
     @classmethod
     async def download_player_icon(cls, player: Player) -> BytesIO | bytes:
