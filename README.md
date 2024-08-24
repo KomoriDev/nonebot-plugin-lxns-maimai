@@ -24,9 +24,14 @@ _✨ NoneBot maimai DX 查分插件 ✨_
 
 <br/>
 
-[//]: # ([![NoneBot Registry]&#40;https://img.shields.io/endpoint?url=https%3A%2F%2Fnbbdg.lgc2333.top%2Fplugin%2Fnonebot-plugin-lxns-maimai&#41;]&#40;https://registry.nonebot.dev/plugin/nonebot-plugin-lxns-maimai:nonebot_plugin_lxns_maimai&#41;)
+<a href="https://registry.nonebot.dev/plugin/nonebot-plugin-lxns-maimai:nonebot_plugin_lxns_maimai">
+  <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fnbbdg.lgc2333.top%2Fplugin%2Fnonebot-plugin-lxns-maimai" alt="NoneBot Registry" />
+</a>
+<a href="https://registry.nonebot.dev/plugin/nonebot-plugin-lxns-maimai:nonebot_plugin_lxns_maimai">
+  <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fnbbdg.lgc2333.top%2Fplugin-adapters%2Fnonebot-plugin-lxns-maimai" alt="Supported Adapters" />
+</a>
 
-[//]: # ([![Supported Adapters]&#40;https://img.shields.io/endpoint?url=https%3A%2F%2Fnbbdg.lgc2333.top%2Fplugin-adapters%2Fnonebot-plugin-lxns-maimai&#41;]&#40;https://registry.nonebot.dev/plugin/nonebot-plugin-lxns-maimai:nonebot_plugin_lxns_maimai&#41;)
+<br />
 
 <a href="#-效果图">
   <strong>📸 演示与预览</strong>
