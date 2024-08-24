@@ -1,4 +1,4 @@
-# from .schema import
+from .config import COURSE_RANK
 from .schema.enum import LevelIndex
 
 
@@ -25,3 +25,7 @@ def star_count_to_color(count: int):
         return "#FF5100", "#FF0000"
     else:
         return "#FFCF00", "#FFFB00"
+
+
+def course_rank_id_to_text(course_rank: int) -> int:
+    return COURSE_RANK[course_rank]

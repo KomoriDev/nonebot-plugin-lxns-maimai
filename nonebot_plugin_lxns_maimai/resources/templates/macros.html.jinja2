@@ -68,7 +68,7 @@
       </div>
     </div>
     <p class="absolute top-[30px] left-[355px] rotate-[-30deg] font-sourcehan font-black text-white text-7xl opacity-50" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
-      初学者
+      {{ player.course_rank | course_rank_id_to_text}}
     </p>
   </header>
 {% endmacro %}

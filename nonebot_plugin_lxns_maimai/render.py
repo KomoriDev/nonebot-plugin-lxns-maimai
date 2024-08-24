@@ -5,7 +5,7 @@ from nonebot_plugin_htmlrender import template_to_pic
 from .schema import RenderProps
 from .config import TEMPLATES_DIR
 from .utils import calc_star_count
-from .filters import star_count_to_color, level_index_to_color
+from .filters import star_count_to_color, level_index_to_color, course_rank_id_to_text
 
 
 async def render_b50(props: RenderProps) -> bytes:
@@ -28,6 +28,7 @@ async def render_b50(props: RenderProps) -> bytes:
         filters={
             "level_index_to_color": level_index_to_color,
             "star_count_to_color": star_count_to_color,
+            "course_rank_id_to_text": course_rank_id_to_text,
         },
         pages={
             "viewport": {"width": 1080, "height": 1512},
