@@ -48,7 +48,7 @@ NoneBot maimai DX 查询插件。
 
 ## 🎉 配置 & 使用
 
-详见 Wiki：[📝 这里](https://github.com/KomoriDev/nonebot-plugin-lxns-maimai/wiki)
+详见 Wiki：[📖 这里](https://github.com/KomoriDev/nonebot-plugin-lxns-maimai/wiki)
 
 ## 📸 效果图
 
