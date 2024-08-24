@@ -28,6 +28,18 @@ _✨ NoneBot maimai DX 查分插件 ✨_
 
 [//]: # ([![Supported Adapters]&#40;https://img.shields.io/endpoint?url=https%3A%2F%2Fnbbdg.lgc2333.top%2Fplugin-adapters%2Fnonebot-plugin-lxns-maimai&#41;]&#40;https://registry.nonebot.dev/plugin/nonebot-plugin-lxns-maimai:nonebot_plugin_lxns_maimai&#41;)
 
+<a href="#-效果图">
+  <strong>📸 演示与预览</strong>
+</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="https://github.com/KomoriDev/nonebot-plugin-lxns-maimai/wiki/%E5%AE%89%E8%A3%85">
+  <strong>📦️ 下载插件</strong>
+</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="https://qm.qq.com/q/Vuipof2zug" target="__blank">
+  <strong>💬 加入交流群</strong>
+</a>
+
 </div>
 
 ## 📖 介绍
