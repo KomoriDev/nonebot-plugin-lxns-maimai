@@ -13,7 +13,7 @@ async def render_b50(props: RenderProps) -> bytes:
     star_counts = await asyncio.gather(*tasks)
 
     for score, star_count in zip(props.standard + props.dx, star_counts):
-        score.star_count = star_count
+        score.star_count = star_count  # type: ignore
 
     return await template_to_pic(
         template_path=str(TEMPLATES_DIR),

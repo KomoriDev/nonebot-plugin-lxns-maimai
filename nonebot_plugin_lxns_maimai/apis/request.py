@@ -14,7 +14,7 @@ class API:
     headers = {"Authorization": token}
 
     @classmethod
-    async def get_player_info(cls, friend_code: int) -> Player | None:
+    async def get_player_info(cls, friend_code: int) -> Player:
         """
         通过好友码获取玩家信息。
         当好友码被绑定时，需要查分器用户开启 `allow_third_party_fetch_player` 权限。

@@ -6,7 +6,7 @@ from .schema import Song, Score, SongDifficulty, SongDifficultyUtage
 def get_difficulty(
     song: Song, type: SongType, level_index: LevelIndex
 ) -> SongDifficulty | SongDifficultyUtage | None:
-    if type == SongType.utage and "utage" in song.difficulties:
+    if type == SongType.utage and song.difficulties.utage:
         return song.difficulties.utage[level_index.value]
     elif type == SongType.standard:
         return song.difficulties.standard[level_index.value]
@@ -22,15 +22,15 @@ async def calc_star_count(score: Score) -> int | None:
     song = await API.get_song_info(score.id)
     difficulty = get_difficulty(song, score.type, score.level_index)
 
-    if not difficulty and not difficulty.notes:
+    if not difficulty or not difficulty.notes:
         return None
 
     if isinstance(difficulty, SongDifficultyUtage):
         percentage = (
-            score.dx_score / (difficulty.notes.left + difficulty.notes.right) * 3
+            score.dx_score / (difficulty.notes.left + difficulty.notes.right) * 3  # type: ignore
         ) * 100
     else:
-        percentage = score.dx_score / (difficulty.notes.total * 3) * 100
+        percentage = score.dx_score / (difficulty.notes.total * 3) * 100  # type: ignore
 
     if percentage >= 97:
         return 5

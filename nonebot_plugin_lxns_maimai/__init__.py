@@ -49,7 +49,7 @@ if not config.api_token:
 def is_enable() -> Rule:
 
     def _rule() -> bool:
-        return config.api_token
+        return bool(config.api_token)
 
     return Rule(_rule)
 
@@ -84,8 +84,9 @@ async def _(friend_code: Match[int], user_session: UserSession):
                 .keyboard(Button("input", label="重试", text="/mai bind"))
                 .finish(at_sender=True, fallback=FallbackStrategy.ignore)
             )
+        result = result.extract_plain_text()
     try:
-        player = await API.get_player_info(result)
+        player = await API.get_player_info(int(result))
         await bind_user(user_session.user_id, player.friend_code)
         await (
             UniMessage.text(f"绑定成功！欢迎 {player.name}")

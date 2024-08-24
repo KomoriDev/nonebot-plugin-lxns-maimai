@@ -27,5 +27,5 @@ def star_count_to_color(count: int):
         return "#FFCF00", "#FFFB00"
 
 
-def course_rank_id_to_text(course_rank: int) -> int:
+def course_rank_id_to_text(course_rank: int) -> str:
     return COURSE_RANK[course_rank]
