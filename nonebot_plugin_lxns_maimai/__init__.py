@@ -11,16 +11,16 @@ require("nonebot_plugin_alconna")
 require("nonebot_plugin_htmlrender")
 from nonebot_plugin_waiter import prompt
 from nonebot_plugin_user import UserSession
+from nonebot_plugin_orm import async_scoped_session
 from nonebot_plugin_alconna.uniseg import Button, UniMessage, FallbackStrategy
 from nonebot_plugin_alconna import Args, Match, Option, Alconna, CommandMeta, on_alconna
 
 from .apis import API
 from . import migrations
-from .model import bind_user
 from .render import render_b50
-from .annotated import UserInfo
 from .schema import RenderProps
 from .config import Config, config
+from .model import User, bind_user
 from .exception import FetchUserException
 
 __plugin_meta__ = PluginMetadata(
@@ -102,10 +102,11 @@ async def _(friend_code: Match[int], user_session: UserSession):
 
 
 @mai.assign("best50")
-async def _(user: UserInfo):
+async def _(db_session: async_scoped_session, user_session: UserSession):
+    user = await db_session.get(User, user_session.user_id)
     if user is None:
         await (
-            UniMessage.text("暂未绑定 maimai 账号。")
+            UniMessage.text("暂未绑定 maimai DX 查分器账号。")
             .text("使用 /mai bind 命令进行绑定")
             .keyboard(Button("input", label="Bind", text="/mai bind"))
             .finish(at_sender=True, fallback=FallbackStrategy.ignore)
