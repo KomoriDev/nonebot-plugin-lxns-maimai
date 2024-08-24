@@ -455,6 +455,14 @@ video {
 @font-face {
   font-family: 'sourcehan';
 
+  src: url('../fonts/SourceHanSans-Normal.otf');
+
+  font-weight: 350
+}
+
+@font-face {
+  font-family: 'sourcehan';
+
   src: url('../fonts/SourceHanSans-Medium.otf');
 
   font-weight: 500
@@ -592,6 +600,14 @@ video {
   position: relative;
 }
 
+.inset-0 {
+  inset: 0px;
+}
+
+.inset-4 {
+  inset: 1rem;
+}
+
 .bottom-8 {
   bottom: 2rem;
 }
@@ -599,6 +615,15 @@ video {
 .bottom-\[2px\] {
   bottom: 2px;
 }
+
+.left-\[128px\] {
+  left: 128px;
+}
+
+.left-\[355px\] {
+  left: 355px;
+}
+
 
 .left-\[-10px\] {
   left: -10px;
@@ -652,6 +677,14 @@ video {
   top: 6px;
 }
 
+.top-\[11px\] {
+  top: 11px;
+}
+
+.top-\[30px\] {
+  top: 30px;
+}
+
 .m-2 {
   margin: 0.5rem;
 }
@@ -663,6 +696,10 @@ video {
 .mx-\[5px\] {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
 }
 
 .-mr-1 {
@@ -766,12 +803,20 @@ video {
   height: 1rem;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .h-2\.5 {
   height: 0.625rem;
 }
 
 .h-\[100px\] {
   height: 100px;
+}
+
+.h-\[132px\] {
+  height: 132px;
 }
 
 .h-\[50px\] {
@@ -802,6 +847,10 @@ video {
   width: 10rem;
 }
 
+.w-\[100px\] {
+  width: 100px;
+}
+
 .w-\[180px\] {
   width: 180px;
 }
@@ -810,12 +859,24 @@ video {
   width: 50px;
 }
 
+.w-\[580px\] {
+  width: 580px;
+}
+
 .w-full {
   width: 100%;
 }
 
+.min-w-48 {
+  min-width: 48px;
+}
+
 .min-w-\[100px\] {
   min-width: 100px;
+}
+
+.max-w-48 {
+  max-width: 12rem;
 }
 
 .max-w-\[100px\] {
@@ -1072,6 +1133,11 @@ video {
   padding: 1.25rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1080,6 +1146,11 @@ video {
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
 }
 
 .py-2 {
@@ -1150,9 +1221,22 @@ video {
   line-height: 1.75rem;
 }
 
+.text-7xl {
+  font-size: 4.5rem;
+  line-height: 1;
+}
+
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-\[10px\] {
+    font-size: 10px;
+}
+
+.font-\[350\] {
+  font-weight: 350;
 }
 
 .font-black {
@@ -1173,6 +1257,10 @@ video {
 
 .font-semibold {
   font-weight: 600;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .text-\[\#C28B78\] {
@@ -1225,6 +1313,11 @@ video {
   color: rgb(169 201 198 / var(--tw-text-opacity));
 }
 
+.text-\[\#966D56\] {
+  --tw-text-opacity: 1;
+  color: rgb(150 109 86 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -1239,6 +1332,10 @@ video {
 
 .underline-offset-8 {
   text-underline-offset: 8px;
+}
+
+.opacity-50 {
+  opacity: 0.5;
 }
 
 .opacity-100 {

@@ -18,7 +18,13 @@ async def render_b50(props: RenderProps) -> bytes:
     return await template_to_pic(
         template_path=str(TEMPLATES_DIR),
         template_name="best50.html.jinja2",
-        templates={"standard": props.standard, "dx": props.dx},
+        templates={
+            "player": props.player,
+            "standard_total": props.standard_total,
+            "dx_total": props.dx_total,
+            "standard": props.standard,
+            "dx": props.dx,
+        },
         filters={
             "level_index_to_color": level_index_to_color,
             "star_count_to_color": star_count_to_color,

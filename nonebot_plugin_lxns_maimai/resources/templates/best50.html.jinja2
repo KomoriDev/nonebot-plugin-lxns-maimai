@@ -1,4 +1,4 @@
-{% from 'macros.html.jinja2' import song_card %}
+{% from 'macros.html.jinja2' import header, song_card %}
 
 
 <!DOCTYPE html>
@@ -44,6 +44,7 @@
 </head>
 
 <body class="flex flex-wrap gap-5" style="background-color: gray">
+  {{ header(player, standard_total, dx_total) }}
   {% for score in standard %}
   	{{ song_card(score, loop.index) }}
   {% endfor %}

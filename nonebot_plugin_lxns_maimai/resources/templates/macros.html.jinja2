@@ -30,6 +30,48 @@
   </div>
 {% endmacro %}
 
+{% macro header(player, standard_total, dx_total) %}
+  <header class="relative w-[580px] h-[132px] rounded-full overflow-hidden">
+
+    {% if player.name_plate %}
+      <div class="absolute inset-0" style="background-image: url('https://assets2.lxns.net/maimai/plate/{{ player.name_plate.id }}.png'); filter: opacity(0.5);"></div>
+    {% else %}
+      <div class="absolute inset-0" style="background-image: url(../images/default_nameplate.png); filter: opacity(0.5);"></div>
+    {% endif %}
+
+    <div
+      class="absolute inset-0"
+      style="background: rgba(0, 0, 0, 0.01); backdrop-filter: blur(10px); box-shadow: inset 0 0 200px 0 rgba(0, 0, 0, 0.49);"
+    ></div>
+
+    {% if player.icon %}
+    	<img class="absolute w-[100px] h-[100px] rounded-full inset-4" src="https://assets2.lxns.net/maimai/icon/{{ player.icon.id }}.png" alt="Icon"/>
+    {% else %}
+    	<img class="absolute w-[100px] h-[100px] rounded-full inset-4" src="../images/default_icon.png" alt="Icon"/>
+    {% endif %}
+
+    <div class="flex flex-col absolute top-[11px] left-[128px]">
+      <div class="flex justify-evenly px-2 max-w-48 bg-white rounded-full min-w-48 h-8">
+        <p class="font-sourcehan text-2xl text-[#966D56] mr-2" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
+          {{ standard_total + dx_total }}
+        </p>
+        <div class="flex flex-col justify-evenly py-0.5">
+          <p class="font-sourcehan font-bold text-[10px] text-[#966D56]" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">Rating</p>
+          <p class="font-sourcehan text-[10px] text-[#966D56]" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
+            {{ standard_total }}+{{ dx_total }}={{ standard_total + dx_total }}
+          </p>
+        </div>
+      </div>
+      <div class="flex mt-1">
+        <p class="font-sourcehan font-[350] uppercase text-4xl text-white" style="text-shadow: 0 0 10px #000000;">{{ player.name }}</p>
+      </div>
+    </div>
+    <p class="absolute top-[30px] left-[355px] rotate-[-30deg] font-sourcehan font-black text-white text-7xl opacity-50" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
+      初学者
+    </p>
+  </header>
+{% endmacro %}
+
 {% macro song_card(score, index) %}
   {% set background_color, shadow_color = score.level_index | level_index_to_color %}
   <div class="relative w-[180px] h-[100px] bg-[{{ background_color }}] shadow-[inset_0_0_20px_{{ shadow_color }}] rounded-tl-[32px] rounded-tr-[15px] rounded-br-[15px] rounded-bl-[15px]">
