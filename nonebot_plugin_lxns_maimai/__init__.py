@@ -30,7 +30,9 @@ __plugin_meta__ = PluginMetadata(
     type="application",
     homepage="https://github.com/KomoriDev/nonebot-plugin-lxns-maimai",
     config=Config,
-    supported_adapters=inherit_supported_adapters("nonebot_plugin_alconna"),
+    supported_adapters=inherit_supported_adapters(
+        "nonebot_plugin_alconna", "nonebot_plugin_user"
+    ),
     extra={
         "unique_name": "maimai dx",
         "orm_version_location": migrations,
