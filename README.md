@@ -34,7 +34,7 @@ _✨ NoneBot maimai DX 查分插件 ✨_
 
 NoneBot maimai DX 查询插件。
 
-## 🎉 使用方法
+## 🎉 配置 & 使用
 
 详见 Wiki：[📝 这里](https://github.com/KomoriDev/nonebot-plugin-lxns-maimai/wiki)
 
