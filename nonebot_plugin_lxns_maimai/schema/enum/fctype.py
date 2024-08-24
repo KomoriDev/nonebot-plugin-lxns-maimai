@@ -4,11 +4,11 @@ from enum import Enum
 class FCType(str, Enum):
     """FULL COMBO 类型"""
 
-    app = "AP+"
+    app = "app"
     """AP+"""
-    ap = "AP"
+    ap = "ap"
     """AP"""
-    fcp = "FC+"
+    fcp = "fcp"
     """FC+"""
-    fc = "FC"
+    fc = "fc"
     """FC"""

@@ -3,6 +3,17 @@ from pydantic import BaseModel
 from .enum import FCType, FSType, RateType, SongType
 
 
+class CollectionGenre(BaseModel):
+    """收藏品分类"""
+
+    id: int
+    """收藏品分类 ID"""
+    title: str
+    """分类标题"""
+    genre: str
+    """分类标题（日文）"""
+
+
 class CollectionRequiredSong(BaseModel):
     """收藏品要求曲目"""
 

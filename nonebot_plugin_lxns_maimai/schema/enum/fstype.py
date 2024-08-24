@@ -4,11 +4,12 @@ from enum import Enum
 class FSType(str, Enum):
     """FULL SYNC 类型"""
 
-    fsdp = "FSD+"
+    fsdp = "fsdp"
     """FSD+"""
-    fsd = "FSD"
+    fsd = "fsd"
     """FSD"""
-    fsp = "FS+"
+    fsp = "fsp"
     """FS+"""
-    fs = "FS"
+    fs = "fs"
     """FS"""
+    sync = "sync"

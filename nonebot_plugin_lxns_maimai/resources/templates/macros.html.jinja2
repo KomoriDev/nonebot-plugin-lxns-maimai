@@ -1,0 +1,141 @@
+{% from 'icons.macros.html.jinja2' import app, ap, fcp, fc, fsdp, fsd, fsp, fs, sync, null %}
+{% set icon_map = {
+    'app': app,
+    'ap': ap,
+    'fcp': fcp,
+    'fc': fc,
+    'fsdp': fsdp,
+    'fsd': fsd,
+    'fsp': fsp,
+    'fs': fs,
+    'sync': sync
+} %}
+
+{% macro stars(count) %}
+  {% set background_color, shadow_color = count | star_count_to_color %}
+  <div class="flex space-x-0.5">
+    {% for i in range(5) %}
+      {% if count == 0 %}
+        <div class="w-0.5 h-2.5 rounded-full bg-[#C28B78] shadow-[0_0_10px_rgba(0,0,0,0.3)]"></div>
+      {% elif count <= 4 %}
+        <div
+          class="w-0.5 h-2.5 rounded-full"
+          style="
+            background-color: {% if i < count %} {{ background_color }} {% else %} #C28B78 {% endif %};
+            box-shadow: {% if i < count %} 0 0 10px {{ shadow_color }} {% else %} 0 0 10px #00000030 {% endif %};
+          "></div>
+      {% else %}
+        <div class="w-0.5 h-2.5 rounded-full" style="background-color: {{ background_color }}; box-shadow: 0 0 10px {{ shadow_color }}"></div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{% macro header(player, standard_total, dx_total) %}
+  <header class="relative w-[580px] h-[132px] rounded-full overflow-hidden">
+
+    {% if player.name_plate %}
+      <div class="absolute inset-0" style="background-image: url('https://assets2.lxns.net/maimai/plate/{{ player.name_plate.id }}.png'); filter: opacity(0.5);"></div>
+    {% else %}
+      <div class="absolute inset-0" style="background-image: url(../images/default_nameplate.png); filter: opacity(0.5);"></div>
+    {% endif %}
+
+    <div
+      class="absolute inset-0"
+      style="background: rgba(0, 0, 0, 0.01); backdrop-filter: blur(10px); box-shadow: inset 0 0 200px 0 rgba(0, 0, 0, 0.49);"
+    ></div>
+
+    {% if player.icon %}
+    	<img class="absolute w-[100px] h-[100px] rounded-full inset-4" src="https://assets2.lxns.net/maimai/icon/{{ player.icon.id }}.png" alt="Icon"/>
+    {% else %}
+    	<img class="absolute w-[100px] h-[100px] rounded-full inset-4" src="../images/default_icon.png" alt="Icon"/>
+    {% endif %}
+
+    <div class="flex flex-col absolute top-[11px] left-[128px]">
+      <div class="flex justify-evenly px-2 max-w-48 bg-white rounded-full min-w-48 h-8">
+        <p class="font-sourcehan text-2xl text-[#966D56] mr-2" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
+          {{ standard_total + dx_total }}
+        </p>
+        <div class="flex flex-col justify-evenly py-0.5">
+          <p class="font-sourcehan font-bold text-[10px] text-[#966D56]" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">Rating</p>
+          <p class="font-sourcehan text-[10px] text-[#966D56]" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
+            {{ standard_total }}+{{ dx_total }}={{ standard_total + dx_total }}
+          </p>
+        </div>
+      </div>
+      <div class="flex mt-1">
+        <p class="font-sourcehan font-[350] uppercase text-4xl text-white" style="text-shadow: 0 0 10px #000000;">{{ player.name }}</p>
+      </div>
+    </div>
+    <p class="absolute top-[30px] left-[355px] rotate-[-30deg] font-sourcehan font-black text-white text-7xl opacity-50" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
+      {{ player.course_rank | course_rank_id_to_text}}
+    </p>
+  </header>
+{% endmacro %}
+
+{% macro song_card(score, index) %}
+  {% set background_color, shadow_color = score.level_index | level_index_to_color %}
+  <div class="relative w-[180px] h-[100px] bg-[{{ background_color }}] shadow-[inset_0_0_20px_{{ shadow_color }}] rounded-tl-[32px] rounded-tr-[15px] rounded-br-[15px] rounded-bl-[15px]">
+    <div class="absolute w-[180px] h-[75px] bg-[#FFFFFF] rounded-tl-[32px] rounded-tr-[15px] rounded-br-[15px] rounded-bl-[15px] shadow-[0_0_15px_rgba(0,0,0,0.4)]" style="mix-blend-mode: color-burn"></div>
+      <div class="flex absolute w-[180px] h-[75px] bg-white rounded-tl-[32px] rounded-tr-[15px] rounded-br-[15px] rounded-bl-[15px] overflow-hidden">
+        <img class="w-[50px] h-[50px] rounded-full ml-[7px] mt-[7px] drop-shadow-[0_0_2px_rgba(0,0,0,0.3)]" src="https://assets2.lxns.net/maimai/jacket/{{ score.id }}.png" alt="Icon"/>
+        <div class="relative flex flex-col justify-center overflow-hidden">
+          <p class="ml-4 mt-2 text-white font-sourcehan font-black text-3xl rotate-[-30deg] blur-[0.5px]" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.15);">
+            {{ score.level_index.name }}
+          </p>
+          <div class="absolute ml-2 min-w-[100px]">
+            <div class="flex items-center justify-between">
+              <p class="text-[#C28B78] font-sourcehan font-medium text-xs">#{{ "%02d" | format(index) }}</p>
+              {{ stars(score.star_count) }}
+            </div>
+            <p class="max-w-[100px] text-[#C28B78] font-sourcehan font-medium text-sm truncate">{{ score.song_name }}</p>
+            <div class="flex items-start space-x-0">
+              {% set integer_part, decimal_part = "{:.4f}".format(score.achievements).split('.') %}
+              {% if score.rate in ['sssp', 'sss'] %}
+                <p class="font-sourcehan font-bold text-2xl text-[#EDD79D]">{{ integer_part[-3] }}</p>
+                <p class="font-sourcehan font-bold text-2xl text-[#9DD9ED]">{{ integer_part[-2] }}</p>
+                <p class="font-sourcehan font-bold text-2xl text-[#ED9DB9]">{{ integer_part[-1] }}</p>
+              {% elif score.rate in ['ssp', 'ss', 'sp', 's'] %}
+                <p class="text-[#EDD79D] font-sourcehan font-bold text-2xl">{{ integer_part }}</p>
+              {% elif score.rate in ['aaa', 'aa', 'a'] %}
+                <p class="text-[#ED9DB9] font-sourcehan font-bold text-2xl">{{ integer_part }}</p>
+              {% elif score.rate in ['bbb', 'bb', 'b'] %}
+                <p class="text-[#9DD9ED] font-sourcehan font-bold text-2xl">{{ integer_part }}</p>
+              {% elif score.rate in ['c', 'd'] %}
+                <p class="text-[#A9C9C6] font-sourcehan font-bold text-2xl">{{ integer_part }}</p>
+              {% else %}
+                <p class="text-[#A9C9C6] font-sourcehan font-bold text-2xl">{{ integer_part }}</p>
+              {% endif %}
+              <p class="text-[#D1C3BF] font-sourcehan font-bold text-2xl -mr-1">.</p>
+              <p class="text-[#D1C3BF] font-sourcehan font-black text-sm mt-1">{{ decimal_part }}%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full px-4 flex absolute justify-between items-end bottom-[2px]">
+        <div class="flex items-end">
+          <p class="font-sourcehan font-medium text-sm text-[#C28B78]">{{ score.level }}</p>
+          <svg class="mx-[5px] mb-[5px]" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="17" height="5" viewBox="0 0 17 5"><g><path d="M12.2782,0.847297Q12.2107,0.777387,12.1743,0.687283Q12.1379,0.5971786,12.1379,0.5Q12.1379,0.4507543,12.1475,0.4024549Q12.1571,0.354155,12.176,0.308658Q12.1948,0.263161,12.2222,0.222215Q12.2496,0.181269,12.2844,0.146447Q12.3192,0.11162499999999997,12.3601,0.08426499999999998Q12.4011,0.05690600000000001,12.4466,0.03805999999999998Q12.4921,0.019214999999999982,12.5404,0.009606999999999977Q12.5887,0,12.6379,0Q12.7397,0,12.8333,0.039756000000000014Q12.927,0.079513,12.9976,0.15270299999999998L16.8597,4.152699999999999Q16.9288,4.22425,16.9652,4.31679Q17.0017,4.409330000000001,16.9999,4.50877Q16.9982,4.60821,16.9585,4.69942Q16.9188,4.79062,16.8473,4.8597Q16.7774,4.9272,16.6873,4.9636Q16.5972,5,16.5,5L0.5,5Q0.4507543,5,0.4024549,4.99039Q0.354155,4.98078,0.308658,4.96194Q0.263161,4.94309,0.222215,4.91573Q0.181269,4.88837,0.146447,4.85355Q0.11162499999999997,4.81873,0.08426499999999998,4.77778Q0.05690600000000001,4.73684,0.03805999999999998,4.69134Q0.019214999999999982,4.64584,0.009606999999999977,4.59755Q0,4.54925,0,4.5Q0,4.45075,0.009606999999999977,4.40245Q0.019214999999999982,4.354150000000001,0.03805999999999998,4.30866Q0.05690600000000001,4.26316,0.08426499999999998,4.2222100000000005Q0.11162499999999997,4.18127,0.146447,4.14645Q0.181269,4.11162,0.222215,4.0842600000000004Q0.263161,4.05691,0.308658,4.03806Q0.354155,4.01921,0.4024549,4.00961Q0.4507543,4,0.5,4L15.3222,4L12.2782,0.847297L12.2782,0.847297Z" fill-rule="evenodd" fill="#C28B78" fill-opacity="1"/></g></svg>
+          <p class="font-sourcehan font-medium text-sm text-[#C28B78]">{{ score.dx_rating | int }}</p>
+        </div>
+
+        <div class="flex gap-6 mb-[2px]">
+          {# FC Type #}
+          {% if not score.fc %}
+            {{ null() }}
+          {% else %}
+          	{{ icon_map[score.fc.value]() }}
+          {% endif %}
+
+          {# FS Type #}
+          {% if not score.fs %}
+            {{ null() }}
+          {% else %}
+          	{{ icon_map[score.fs.value]() }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+{% endmacro %}
