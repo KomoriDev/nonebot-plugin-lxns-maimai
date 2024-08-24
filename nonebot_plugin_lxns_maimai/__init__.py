@@ -37,7 +37,7 @@ __plugin_meta__ = PluginMetadata(
         "unique_name": "maimai dx",
         "orm_version_location": migrations,
         "author": "Komorebi <mute231010@gmail.com>",
-        "version": "0.1.0",
+        "version": "0.1.1",
     },
 )
 
