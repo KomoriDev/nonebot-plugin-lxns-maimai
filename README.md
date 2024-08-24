@@ -96,6 +96,10 @@ plugins = ["nonebot_plugin_lxns_maimai"]
 /m b50
 ```
 
+## 📸 效果图
+
+<img src="./docs/rendering.png" height="500" alt="rendering"/>
+
 ## 💖 鸣谢
 
 - [@Lxns-Network](https://github.com/Lxns-Network)：提供了超棒的 maimai DX 查分器
@@ -114,5 +118,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
-
-
