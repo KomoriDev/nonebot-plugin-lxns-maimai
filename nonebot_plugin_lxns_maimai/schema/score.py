@@ -1,3 +1,4 @@
+from nonebot.compat import PYDANTIC_V2
 from pydantic import BaseModel, ConfigDict
 
 from .enum import FCType, FSType, RateType, SongType, LevelIndex
@@ -33,4 +34,9 @@ class Score(BaseModel):
     upload_time: str
     """仅获取 `Score` 时返回，成绩被同步时的 UTC 时间"""
 
-    model_config = ConfigDict(extra="allow")
+    if PYDANTIC_V2:
+        model_config = ConfigDict(extra="allow")  # type: ignore
+    else:
+
+        class Config:
+            extra = "allow"

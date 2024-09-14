@@ -25,7 +25,7 @@ class API:
             )
         if response.status_code != 200:
             raise FetchUserException(response.json()["message"])
-        return Player.model_validate(response.json()["data"])
+        return Player(**response.json()["data"])
 
     @classmethod
     async def get_rating_trend(cls, friend_code: int) -> Trend:
@@ -39,7 +39,7 @@ class API:
             )
         if response.status_code != 200:
             raise FetchUserException(response.json()["message"])
-        return Trend.model_validate(response.json()["data"])
+        return Trend(**response.json()["data"])
 
     @classmethod
     async def get_bests(
@@ -63,15 +63,15 @@ class API:
         if response.status_code != 200:
             raise FetchUserException(response.json()["message"])
         data = response.json()["data"]
-        standard_scores = [Score.model_validate(score) for score in data["standard"]]
-        dx_scores = [Score.model_validate(score) for score in data["dx"]]
+        standard_scores = [Score(**score) for score in data["standard"]]
+        dx_scores = [Score(**score) for score in data["dx"]]
         return data["standard_total"], data["dx_total"], standard_scores, dx_scores
 
     @classmethod
     async def get_song_info(cls, song_id: int) -> Song:
         async with httpx.AsyncClient() as client:
             response = await client.get(f"{url}/song/{song_id}")
-        return Song.model_validate(response.json())
+        return Song(**response.json())
 
     @classmethod
     async def download_player_icon(cls, player: Player) -> BytesIO | bytes:
