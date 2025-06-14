@@ -74,6 +74,14 @@ class API:
         return Song(**response.json())
 
     @classmethod
+    async def get_song_list(cls, *, is_notes: bool = False) -> list[Song]:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                f"{url}/song/list" if not is_notes else f"{url}/song/list?notes=true"
+            )
+        return [Song(**song) for song in response.json()["songs"]]
+
+    @classmethod
     async def download_player_icon(cls, player: Player) -> BytesIO | bytes:
         if not player.icon:
             return BytesIO()
