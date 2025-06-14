@@ -1,5 +1,3 @@
-import asyncio
-
 from nonebot_plugin_htmlrender import template_to_pic
 
 from .schema import RenderProps
@@ -9,8 +7,7 @@ from .filters import star_count_to_color, level_index_to_color, course_rank_id_t
 
 
 async def render_b50(props: RenderProps) -> bytes:
-    tasks = [calc_star_count(score) for score in props.standard + props.dx]
-    star_counts = await asyncio.gather(*tasks)
+    star_counts = await calc_star_count(list(props.standard + props.dx))
 
     for score, star_count in zip(props.standard + props.dx, star_counts):
         score.star_count = star_count  # type: ignore
