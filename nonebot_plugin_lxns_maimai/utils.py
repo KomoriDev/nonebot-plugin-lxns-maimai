@@ -16,31 +16,44 @@ def get_difficulty(
         return None
 
 
-async def calc_star_count(score: Score) -> int | None:
+async def calc_star_count(scores: list[Score]) -> list[int]:
     """计算 DX 分数星星数量"""
 
-    song = await API.get_song_info(score.id)
-    difficulty = get_difficulty(song, score.type, score.level_index)
+    song_list = await API.get_song_list(is_notes=True)
+    song_dict = {song.id: song for song in song_list}
 
-    if not difficulty or not difficulty.notes:
-        return None
+    matched_songs = []
+    for score in scores:
+        if song := song_dict.get(score.id):
+            matched_songs.append((song, score))
 
-    if isinstance(difficulty, SongDifficultyUtage):
-        percentage = (
-            score.dx_score / (difficulty.notes.left + difficulty.notes.right) * 3  # type: ignore
-        ) * 100
-    else:
-        percentage = score.dx_score / (difficulty.notes.total * 3) * 100  # type: ignore
+    star_counts = []
+    for song, score in matched_songs:
 
-    if percentage >= 97:
-        return 5
-    elif percentage >= 95:
-        return 4
-    elif percentage >= 93:
-        return 3
-    elif percentage >= 90:
-        return 2
-    elif percentage >= 85:
-        return 1
-    else:
-        return 0
+        difficulty = get_difficulty(song, score.type, score.level_index)
+
+        if not difficulty or not difficulty.notes:
+            star_counts.append(0)
+            continue
+
+        if isinstance(difficulty, SongDifficultyUtage):
+            percentage = (
+                score.dx_score / (difficulty.notes.left + difficulty.notes.right) * 3  # type: ignore
+            ) * 100
+        else:
+            percentage = score.dx_score / (difficulty.notes.total * 3) * 100  # type: ignore
+
+        if percentage >= 97:
+            star_counts.append(5)
+        elif percentage >= 95:
+            star_counts.append(4)
+        elif percentage >= 93:
+            star_counts.append(3)
+        elif percentage >= 90:
+            star_counts.append(2)
+        elif percentage >= 85:
+            star_counts.append(1)
+        else:
+            star_counts.append(0)
+
+    return star_counts
